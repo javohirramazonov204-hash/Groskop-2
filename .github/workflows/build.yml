@@ -16,7 +16,15 @@ jobs:
           java-version: 17
 
       - name: Unzip
-        run: unzip -q VirtualGyro-fixed.zip
+        run: |
+          echo "Repo ichidagi fayllar:"
+          ls -R | head -40
+          ZIP="$(find . -iname '*.zip' | head -1)"
+          if [ -z "$ZIP" ]; then
+            echo "ZIP TOPILMADI: repo'ga VirtualGyro-fixed.zip yuklang"
+            exit 1
+          fi
+          unzip -q "$ZIP"
 
       - uses: gradle/actions/setup-gradle@v4
         with:
